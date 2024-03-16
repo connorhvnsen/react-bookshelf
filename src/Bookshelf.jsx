@@ -5,6 +5,7 @@ import { useSprings, animated } from "@react-spring/three";
 
 export default function Bookshelf(props) {
   // TODO maps
+  // TODO extract
   const books = [
     { title: "Dune" },
     { title: "Prey" },
@@ -15,6 +16,7 @@ export default function Bookshelf(props) {
 
   const totalBooks = books.length;
   const spacing = 1.25; // Adjust the spacing between books
+  const shift = 2;
 
   const [clickedIndex, setClickedIndex] = useState(null);
 
@@ -22,9 +24,9 @@ export default function Bookshelf(props) {
   const positionAdjustments = books.map((_, index) => {
     if (clickedIndex !== null) {
       if (index < clickedIndex) {
-        return -2; // Move the book to the left if it's before the clicked book
+        return -shift; // Move the book to the left if it's before the clicked book
       } else if (index > clickedIndex) {
-        return 2; // Move the book to the right if it's after the clicked book
+        return shift; // Move the book to the right if it's after the clicked book
       }
     }
     return 0; // Default case, no adjustment

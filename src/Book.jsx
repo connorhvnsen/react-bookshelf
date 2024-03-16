@@ -22,7 +22,7 @@ export function Book(props) {
       <Text
         position={[0, 0, 2.01]} // offset to prevent z-clipping
         rotation={[Math.PI, Math.PI, Math.PI / 2]}
-        fontSize={0.5}
+        fontSize={0.25}
         color="black"
         anchorX="center"
         anchorY="middle"
