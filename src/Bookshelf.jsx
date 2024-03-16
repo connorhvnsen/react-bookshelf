@@ -22,9 +22,9 @@ export default function Bookshelf(props) {
   const positionAdjustments = books.map((_, index) => {
     if (clickedIndex !== null) {
       if (index < clickedIndex) {
-        return -2.5; // Move the book to the left if it's before the clicked book
+        return -2; // Move the book to the left if it's before the clicked book
       } else if (index > clickedIndex) {
-        return 2.5; // Move the book to the right if it's after the clicked book
+        return 2; // Move the book to the right if it's after the clicked book
       }
     }
     return 0; // Default case, no adjustment
