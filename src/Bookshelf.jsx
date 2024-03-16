@@ -22,9 +22,9 @@ export default function Bookshelf(props) {
   const positionAdjustments = books.map((_, index) => {
     if (clickedIndex !== null) {
       if (index < clickedIndex) {
-        return -1.75; // Move the book to the left if it's before the clicked book
+        return -2.5; // Move the book to the left if it's before the clicked book
       } else if (index > clickedIndex) {
-        return 1.75; // Move the book to the right if it's after the clicked book
+        return 2.5; // Move the book to the right if it's after the clicked book
       }
     }
     return 0; // Default case, no adjustment
@@ -33,16 +33,20 @@ export default function Bookshelf(props) {
   // Use useSprings to animate the rotation of each book
   const springs = useSprings(
     books.length,
-    books.map((_, index) => ({
-      rotation: clickedIndex === index ? [0, -Math.PI / 2, 0] : [0, 0, 0],
-      position: [
-        (index - Math.floor(totalBooks / 2)) * spacing +
-          positionAdjustments[index],
-        0,
-        0,
-      ],
-      config: { mass: 1, tension: 170, friction: 26 },
-    }))
+    books.map((book, index) => {
+      const pivotAdjustment = clickedIndex === index ? [0, 0, 1.5] : [0, 0, 0];
+      return {
+        rotation: clickedIndex === index ? [0, -Math.PI / 2, 0] : [0, 0, 0],
+        position: [
+          (index - Math.floor(totalBooks / 2)) * spacing +
+            positionAdjustments[index] -
+            pivotAdjustment[0],
+          0,
+          pivotAdjustment[2],
+        ],
+        config: { mass: 1, tension: 170, friction: 26 },
+      };
+    })
   );
 
   const handleClick = (index) => {
@@ -52,12 +56,10 @@ export default function Bookshelf(props) {
   return (
     <>
       {springs.map((props, index) => {
-        let x = (index - Math.floor(totalBooks / 2)) * spacing;
-
+        // Adjust the position of the book within the group based on the clicked state
         return (
           <animated.group
             {...props}
-            // position={[x, 0, 0]}
             key={index}
             onClick={(event) => {
               event.stopPropagation();
