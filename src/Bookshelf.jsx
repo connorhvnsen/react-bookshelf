@@ -16,7 +16,7 @@ export default function Bookshelf(props) {
 
   const totalBooks = books.length;
   const spacing = 1.25; // Adjust the spacing between books
-  const shift = 2;
+  const shift = 2; // Adjust the spacing between books when selected
 
   const [clickedIndex, setClickedIndex] = useState(null);
 
