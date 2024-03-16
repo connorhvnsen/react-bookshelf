@@ -1,5 +1,6 @@
 import React from "react";
 import { Book } from "./Book.jsx";
+import { BookThree } from "./BookThree.jsx";
 
 export default function Bookshelf(props) {
   // TODO maps
@@ -12,13 +13,15 @@ export default function Bookshelf(props) {
   ];
 
   const totalBooks = books.length;
-  const spacing = 1.25; // Adjust the spacing between books
+  const spacing = 0.75; // Adjust the spacing between books
 
   return (
     <>
       {books.map((book, index) => {
         let x = (index - Math.floor(totalBooks / 2)) * spacing;
-        return <Book position={[x, 0, 0]} title={book.title} key={index} />;
+        return (
+          <BookThree position={[x, 0, 0]} title={book.title} key={index} />
+        );
       })}
     </>
   );

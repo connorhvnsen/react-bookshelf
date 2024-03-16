@@ -7,11 +7,11 @@ import { OrbitControls } from "@react-three/drei";
 
 export const Scene = () => {
   return (
-    <Canvas orthographic camera={{ zoom: 50 }}>
+    <Canvas camera={{ position: [0, 0, 5] }}>
       {/* Lights... */}
       <Environment preset="city" />
       {/* Camera... */}
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       {/* Bookshelf! */}
       <Suspense fallback={null}>
         <Bookshelf />

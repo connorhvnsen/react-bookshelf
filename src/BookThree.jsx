@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useLoader } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
+import { Html, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { useSpring, animated } from "@react-spring/three";
 
-function Book(props) {
+export function BookThree(props) {
   const [rotation, setRotation] = useState([0, 0, 0]);
   const [clicked, setClicked] = useState(false);
 
@@ -31,7 +31,14 @@ function Book(props) {
   );
 
   return (
-    <animated.mesh onClick={handleClick} rotation={spring.rotation}>
+    <animated.mesh
+      position={props.position}
+      onClick={(event) => {
+        event.stopPropagation();
+        handleClick();
+      }}
+      rotation={spring.rotation}
+    >
       <boxGeometry args={[0.5, 3, 2]}></boxGeometry>
       {/* cover */}
       <meshStandardMaterial
@@ -57,12 +64,16 @@ function Book(props) {
       <Text
         position={[0, 0, 1.01]} // offset to prevent z-clipping
         rotation={[Math.PI, Math.PI, Math.PI / 2]}
-        fontSize={0.3}
+        fontSize={0.25}
         color="black"
         anchorX="center"
         anchorY="middle"
+        onClick={(event) => {
+          event.stopPropagation();
+          handleClick();
+        }}
       >
-        Dune
+        {props.title}
       </Text>
     </animated.mesh>
     // TBD - Rounded Corners
@@ -73,5 +84,3 @@ function Book(props) {
     //
   );
 }
-
-export default Book;
