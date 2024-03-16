@@ -7,7 +7,7 @@ import { OrbitControls } from "@react-three/drei";
 
 export const Scene = () => {
   return (
-    <Canvas camera={{ position: [0, 0, 5] }}>
+    <Canvas camera={{ position: [0, 0, 10] }}>
       {/* Lights... */}
       <Environment preset="city" />
       {/* Camera... */}
