@@ -14,7 +14,10 @@ export default function Bookshelf(props) {
     { title: "Prey" },
     { title: "The Quantunm Evolution" },
     { title: "Think and Grow Rich" },
-    { title: "The Creative Act" },
+    {
+      title: "The Creative Act",
+      diffuse: "/maps/the_creative_act/the_creative_act_diffuse.jpg",
+    },
   ];
 
   const totalBooks = books.length;
