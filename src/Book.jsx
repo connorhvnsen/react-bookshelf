@@ -4,21 +4,38 @@ Command: npx gltfjsx@6.2.16 book.glb --transform
 Files: book.glb [127.1KB] > /Users/connorhansen/code/bookshelf/public/models/book-transformed.glb [15.49KB] (88%)
 */
 
-import React, { useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useGLTF, Text } from "@react-three/drei";
+import { TextureLoader } from "three";
 
 export function Book(props) {
-  const { nodes, materials } = useGLTF("/models/book-transformed.glb");
+  const { nodes, materials } = useGLTF("/models/book.glb");
+  const [texture, setTexture] = useState(null);
+
+  useEffect(() => {
+    if (props.book.diffuse) {
+      const loader = new TextureLoader();
+      loader.load(props.book.diffuse, (loadedTexture) => {
+        setTexture(loadedTexture);
+        loadedTexture.flipY = false;
+      });
+    }
+  }, [props.book.diffuse]);
+
+  // Clone the Jacket material and apply the texture if available
+  let jacketMaterial = materials.Jacket.clone();
+  if (texture) {
+    jacketMaterial.map = texture;
+  }
+
+  // TODO maps
+  // access via props.book
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Cube001.geometry} material={materials.Base} />
-      <mesh geometry={nodes.Cube001_1.geometry} material={materials.Cover} />
-      <mesh
-        geometry={nodes.Cube001_2.geometry}
-        material={materials["Material.003"]}
-      />
+      <mesh geometry={nodes.Cube001_1.geometry} material={jacketMaterial} />
       {/* Text on spine */}
-      {/* TODO fix click events not firing on text */}
+      {/* TODO include as fallback? Use default maps */}
       <Text
         position={[0, 0, 2.01]} // offset to prevent z-clipping
         rotation={[Math.PI, Math.PI, Math.PI / 2]}

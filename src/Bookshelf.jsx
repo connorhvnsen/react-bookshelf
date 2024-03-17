@@ -7,7 +7,10 @@ export default function Bookshelf(props) {
   // TODO maps
   // TODO extract
   const books = [
-    { title: "Dune" },
+    {
+      title: "Dune",
+      diffuse: "/maps/dune/dune_diffuse.jpg",
+    },
     { title: "Prey" },
     { title: "The Quantunm Evolution" },
     { title: "Think and Grow Rich" },
@@ -68,7 +71,7 @@ export default function Bookshelf(props) {
               handleClick(index);
             }}
           >
-            <Book title={books[index].title} key={index} />
+            <Book book={books[index]} title={books[index].title} key={index} />
             {/* <BookThree position={[x, 0, 0]} title={book.title} key={index} /> */}
           </animated.group>
         );

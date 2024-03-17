@@ -13,7 +13,7 @@ export const Scene = () => {
       <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
       <Environment preset="city" />
       {/* Camera... */}
-      {/* <OrbitControls /> */}
+      <OrbitControls />
       {/* Bookshelf! */}
       <Suspense fallback={null}>
         <Bookshelf />
