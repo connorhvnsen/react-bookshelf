@@ -42,7 +42,7 @@ export default function Bookshelf(props) {
   const springs = useSprings(
     books.length,
     books.map((book, index) => {
-      const pivotAdjustment = clickedIndex === index ? [0, 0, 1.5] : [0, 0, 0];
+      const pivotAdjustment = clickedIndex === index ? [0, 0, 2.75] : [0, 0, 0];
       return {
         rotation: clickedIndex === index ? [0, -Math.PI / 2, 0] : [0, 0, 0],
         position: [

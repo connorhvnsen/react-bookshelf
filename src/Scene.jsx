@@ -14,13 +14,13 @@ export const Scene = () => {
       camera={{ position: [0, 0, 15], fov: 50 }}
     >
       {/* Lights... */}
-      <pointLight intensity={10} position={[-6, 5, 4]} />
-      <pointLight intensity={10} position={[-3, 5, 4]} />
-      <pointLight intensity={10} position={[0, 5, 4]} />
-      <pointLight intensity={10} position={[3, 5, 4]} />
-      <pointLight intensity={15} position={[6, 0, 8]} />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
+      <pointLight intensity={10} position={[-6, 5, 4]} castShadow />
+      <pointLight intensity={10} position={[-3, 5, 4]} castShadow />
+      <pointLight intensity={10} position={[0, 5, 4]} castShadow />
+      <pointLight intensity={10} position={[3, 5, 4]} castShadow />
+      <pointLight intensity={15} position={[6, 0, 8]} castShadow />
+      <ambientLight intensity={0.5} castShadow />
+      <directionalLight position={[5, 5, 10]} intensity={1.25} castShadow />
       {/* <Environment preset="city" /> */}
       {/* Camera... */}
       <OrbitControls />
