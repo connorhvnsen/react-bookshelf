@@ -5,12 +5,20 @@ Files: book.glb [127.1KB] > /Users/connorhansen/code/bookshelf/public/models/boo
 */
 
 import React, { useEffect, useState } from "react";
-import { useGLTF, Text } from "@react-three/drei";
+import { useGLTF, Text, useTexture } from "@react-three/drei";
 import { TextureLoader } from "three";
+import * as THREE from "three";
 
 export function Book(props) {
   const { nodes, materials } = useGLTF("/models/book.glb");
   const [texture, setTexture] = useState(null);
+  const bumpBuckrum = useTexture("/maps/bump_buckrum.jpg");
+  // const diffuseTexture = useTexture("maps/diffuse_overlay.jpg");
+
+  // Fix bump orientation
+  bumpBuckrum.wrapS = bumpBuckrum.wrapT = THREE.RepeatWrapping;
+  bumpBuckrum.repeat.set(1, -1); // Flip the bump texture vertically
+  bumpBuckrum.offset.set(0, 1); // Adjust the offset to align the texture correctly\
 
   useEffect(() => {
     if (props.book.diffuse) {
@@ -24,6 +32,9 @@ export function Book(props) {
 
   // Clone the Jacket material and apply the texture if available
   let jacketMaterial = materials.Jacket.clone();
+  jacketMaterial.bumpMap = bumpBuckrum;
+  // jacketMaterial.alphaMap = diffuseTexture;
+  jacketMaterial.bumpScale = 10; // Adjust the bump scale as needed
   if (texture) {
     jacketMaterial.map = texture;
   }
@@ -36,16 +47,18 @@ export function Book(props) {
       <mesh geometry={nodes.Cube001_1.geometry} material={jacketMaterial} />
       {/* Text on spine */}
       {/* TODO include as fallback? Use default maps */}
-      <Text
-        position={[0, 0, 2.01]} // offset to prevent z-clipping
-        rotation={[Math.PI, Math.PI, Math.PI / 2]}
-        fontSize={0.25}
-        color="black"
-        anchorX="center"
-        anchorY="middle"
-      >
-        {props.title}
-      </Text>
+      {!texture && (
+        <Text
+          position={[0, 0, 2.01]} // offset to prevent z-clipping
+          rotation={[Math.PI, Math.PI, Math.PI / 2]}
+          fontSize={0.25}
+          color="black"
+          anchorX="center"
+          anchorY="middle"
+        >
+          {props.title}
+        </Text>
+      )}
     </group>
   );
 }
