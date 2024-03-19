@@ -45,8 +45,7 @@ export function Book(props) {
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Cube001.geometry} material={materials.Base} />
       <mesh geometry={nodes.Cube001_1.geometry} material={jacketMaterial} />
-      {/* Text on spine */}
-      {/* TODO include as fallback? Use default maps */}
+      {/* Spine text fallback */}
       {!texture && (
         <Text
           position={[0, 0, 2.01]} // offset to prevent z-clipping
